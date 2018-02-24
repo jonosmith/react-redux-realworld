@@ -19,6 +19,8 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
+    "analyse:circular":
+      "depcruise --exclude \"^node_modules\" --validate .dependency-cruiser.json src",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "@types/react-redux": "^5.0.15",
     "@types/redux": "^3.6.0",
     "@types/redux-saga": "^0.10.5",
+    "dependency-cruiser": "^2.14.0",
     "tslint-config-prettier": "^1.8.0",
     "typescript": "^2.7.2"
   }
