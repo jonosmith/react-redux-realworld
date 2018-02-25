@@ -1,35 +1,20 @@
 import * as React from 'react'
+import { APP_NAME, ROUTE_INDEX, ROUTE_REGISTER } from '../../config'
+import Brand from './components/Brand'
+import Container from './components/Container'
+import NavLink from './components/NavLink'
+import NavLinks from './components/NavLinks'
 
 export default function Header() {
   return (
-    <nav className="navbar navbar-light">
-      <div className="container">
-        <a className="navbar-brand" href="index.html">
-          conduit
-        </a>
-        <ul className="nav navbar-nav pull-xs-right">
-          <li className="nav-item">
-            <a className="nav-link active" href="">
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="">
-              <i className="ion-compose" />&nbsp;New Post
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="">
-              <i className="ion-gear-a" />&nbsp;Settings
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="">
-              Sign up
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <Container>
+      <Brand route={ROUTE_INDEX}>{APP_NAME}</Brand>
+      <NavLinks>
+        <NavLink active route={ROUTE_INDEX}>
+          Home
+        </NavLink>
+        <NavLink route={ROUTE_REGISTER}>Register</NavLink>
+      </NavLinks>
+    </Container>
   )
 }

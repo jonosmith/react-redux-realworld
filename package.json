@@ -9,6 +9,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.13.0",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
@@ -19,8 +20,7 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "analyse:circular":
-      "depcruise --exclude \"^node_modules\" --validate .dependency-cruiser.json src",
+    "analyse:circular": "depcruise --exclude \"^node_modules\" --validate .dependency-cruiser.json src",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -32,6 +32,7 @@
     "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.4",
     "@types/react-redux": "^5.0.15",
+    "@types/react-router-dom": "^4.2.4",
     "@types/redux": "^3.6.0",
     "@types/redux-saga": "^0.10.5",
     "dependency-cruiser": "^2.14.0",
