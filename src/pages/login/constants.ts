@@ -1,1 +1,1 @@
-export const NAME = 'LOGIN'
+export const NAME = '@@page/LOGIN'

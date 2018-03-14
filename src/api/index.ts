@@ -1,12 +1,28 @@
 import axios from 'axios'
-import { API_URL_ARTICLES, API_URL_TAGS } from '../config'
+import * as config from '../config'
 
 async function fetchAllArticles() {
-  return axios.get(API_URL_ARTICLES)
+  return axios.get(config.API_URL_ARTICLES)
 }
 
 async function fetchAllTags() {
-  return axios.get(API_URL_TAGS)
+  return axios.get(config.API_URL_TAGS)
+}
+
+async function registerUser({
+  email,
+  username,
+  password,
+}: {
+  email: string
+  username: string
+  password: string
+}) {
+  return axios.post(config.API_URL_REGISTER, {
+    email,
+    password,
+    username,
+  })
 }
 
 export default {
@@ -15,5 +31,8 @@ export default {
   },
   tags: {
     fetch: fetchAllTags,
+  },
+  user: {
+    register: registerUser,
   },
 }

@@ -9,6 +9,7 @@
       {
         "named-imports-order": "lowercase-last"
       }
-    ]
+    ],
+    "object-literal-sort-keys": false
   }
 }

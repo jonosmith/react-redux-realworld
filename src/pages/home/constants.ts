@@ -1,1 +1,1 @@
-export const NAME = 'HOME'
+export const NAME = '@@page/HOME'

@@ -20,3 +20,5 @@ export const API_URL_ARTICLE_COMMENTS = `${API_URL}/articles/:article/comments`
 export const API_URL_PROFILE = `${API_URL}/profiles/:username`
 export const API_URL_PROFILE_FOLLOW = `${API_URL}/profiles/:username/follow`
 export const API_URL_TAGS = `${API_URL}/tags`
+
+export const FORM_STATE_PATH = 'app.forms'

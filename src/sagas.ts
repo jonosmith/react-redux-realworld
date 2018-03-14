@@ -1,3 +1,4 @@
+import user from './modules/user'
 import home from './pages/home'
 
 // ----------------------------------------------------------------------------
@@ -5,5 +6,5 @@ import home from './pages/home'
 // ----------------------------------------------------------------------------
 
 export default function* saga() {
-  yield [home.sagas()]
+  yield [home.sagas(), user.sagas()]
 }
