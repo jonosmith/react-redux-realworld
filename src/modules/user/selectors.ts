@@ -1,12 +1,22 @@
 import { createSelector } from 'reselect'
-import { State } from '../../types'
 
-export const user = createSelector(
-  (state: State) => state.app.USER.data,
-  value => value
-)
+import remoteData from '../../common/remotedata'
+import { State as AppState } from '../../types'
+import { User } from '../../types'
+import { State } from './types'
 
-export const errorMessage = createSelector(
-  (state: State) => state.app.USER.ui.error,
-  value => value
-)
+export const data = (appState: AppState): State => appState.app.USER
+
+export const isLoggedIn = createSelector(data, (userState: State) => {
+  return remoteData.isSuccess(userState)
+})
+
+export const username = createSelector(data, (userState: State) => {
+  if (!remoteData.isSuccess(userState)) {
+    return undefined
+  }
+
+  const user = remoteData.getData(userState) as User
+
+  return user.username
+})

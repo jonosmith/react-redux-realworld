@@ -1,25 +1,29 @@
+import * as H from 'history'
 import * as React from 'react'
 import { Dispatch, connect } from 'react-redux'
-import user, { Action as UserAction } from '../../modules/user'
+
+import user, {
+  Action as UserAction,
+  State as UserState,
+} from '../../modules/user'
 import { State } from '../../types'
 import Register from './components/Register'
-// import * as select from './selectors'
 import { Form } from './types'
 
 interface Props {
   actions: {
     registerUser: (formData: Form) => any
   }
-  errorMessage?: string
+  history: H.History
+  userState: UserState
   formData: Form
 }
 
-const RegisterView = ({ actions, errorMessage, formData }: Props) => {
+const RegisterView = ({ actions, userState: userState, formData }: Props) => {
+  const handleRegisterClick = () => actions.registerUser(formData)
+
   return (
-    <Register
-      errorMessage={errorMessage}
-      onRegisterClick={() => actions.registerUser(formData)}
-    />
+    <Register userState={userState} onRegisterClick={handleRegisterClick} />
   )
 }
 
@@ -28,18 +32,20 @@ const RegisterView = ({ actions, errorMessage, formData }: Props) => {
 // -----------------------------------------------------------------------------
 
 const mapStateToProps = (state: State) => {
-  console.log(state) // tslint:disable-line
   return {
     formData: state.app.forms.register,
-    errorMessage: state.app.USER.ui.error,
+    userState: user.select.data(state),
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => {
+const mapDispatchToProps = (
+  dispatch: Dispatch<UserAction>,
+  ownProps: Props
+) => {
   return {
     actions: {
       registerUser: (formData: Form) => {
-        dispatch(user.actions.registerRequest(formData))
+        dispatch(user.actions.registerRequest(formData, ownProps.history))
       },
     },
   }

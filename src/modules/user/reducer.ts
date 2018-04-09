@@ -1,47 +1,28 @@
-import { combineReducers } from 'redux'
+import * as remoteData from '../../common/remotedata'
 import * as actions from './actions'
 import * as constants from './constants'
-import { DataState, UiState } from './types'
+import { State } from './types'
 
-const initState = {
-  data: {
-    user: undefined,
-  },
-  ui: {},
-}
+const initState = remoteData.notAsked()
 
-function dataReducer(currentState: DataState, action: actions.Action) {
-  const state = currentState || initState.data
+const reducer = (currentState: State, action: actions.Action): State => {
+  const state = currentState || initState
 
   switch (action.type) {
-    case constants.CURRENT_USER_SET: {
-      return {
-        ...state,
-        user: action.payload,
-      }
+    case constants.REGISTER_REQUEST: {
+      return remoteData.loading()
     }
-  }
 
-  return state
-}
+    case constants.REGISTER_REQUEST_SUCCESS: {
+      return remoteData.success(action.payload)
+    }
 
-function uiReducer(currentState: UiState, action: actions.Action) {
-  const state = currentState || initState.ui
-
-  switch (action.type) {
     case constants.REGISTER_REQUEST_FAILURE: {
-      return {
-        ...state,
-        user: {},
-        error: action.payload,
-      }
+      return remoteData.failure(action.payload)
     }
   }
 
   return state
 }
 
-export default combineReducers({
-  data: dataReducer,
-  ui: uiReducer,
-})
+export default reducer

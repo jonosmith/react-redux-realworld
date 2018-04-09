@@ -1,29 +1,32 @@
 import * as React from 'react'
 import { Control, Form } from 'react-redux-form'
+
+import { getError, isFailure, isLoading } from '../../../common/remotedata'
 import {
   Button,
   Container,
   Heading,
   SubHeadingLink,
-} from '../../../../components/Authorisation'
-import ErrorMessages from '../../../../components/ErrorMessages'
-import Fieldset from '../../../../components/Fieldset'
-import Input from '../../../../components/Input'
-import { ROUTE_LOGIN } from '../../../../config'
-import { FORM_STATE_PATH } from '../../constants'
+} from '../../../components/Authorisation'
+import ErrorMessages from '../../../components/ErrorMessages'
+import Fieldset from '../../../components/Fieldset'
+import Input from '../../../components/Input'
+import { ROUTE_LOGIN } from '../../../config'
+import { State as UserState } from '../../../modules/user'
+import { FORM_STATE_PATH } from '../constants'
 
 export interface Props {
-  errorMessage?: string
+  userState: UserState
   onRegisterClick: () => any
 }
 
-export default function Register({ errorMessage, onRegisterClick }: Props) {
+const Register = ({ userState, onRegisterClick }: Props) => {
   return (
     <Container>
       <Heading>Register</Heading>
       <SubHeadingLink route={ROUTE_LOGIN}>Have an account?</SubHeadingLink>
 
-      {errorMessage && <ErrorMessages errors={[errorMessage]} />}
+      {isFailure(userState) && <ErrorMessages errors={getError(userState)} />}
 
       <Form model={FORM_STATE_PATH} hideNativeErrors>
         <Fieldset>
@@ -48,7 +51,11 @@ export default function Register({ errorMessage, onRegisterClick }: Props) {
         </Fieldset>
       </Form>
 
-      <Button onClick={onRegisterClick}>Register</Button>
+      <Button disabled={isLoading(userState)} onClick={onRegisterClick}>
+        Register
+      </Button>
     </Container>
   )
 }
+
+export default Register

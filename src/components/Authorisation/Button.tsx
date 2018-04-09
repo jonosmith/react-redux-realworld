@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export interface Props {
+export interface Props extends React.ButtonHTMLAttributes<any> {
   children: React.ReactNode
   onClick: () => any
 }

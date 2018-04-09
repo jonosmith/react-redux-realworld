@@ -1,15 +1,17 @@
-import * as constants from './constants'
-import { User } from './types'
+import * as H from 'history'
 
-// -----------------------------------------------------------------------------
-// TYPES
-// -----------------------------------------------------------------------------
+import { User } from '../../types'
+import * as constants from './constants'
 
 export type Action =
   | RegisterRequest
   | RegisterRequestSuccess
   | RegisterRequestFailure
   | SetCurrentUser
+
+// -----------------------------------------------------------------------------
+// REGISTER USER REQUEST
+// -----------------------------------------------------------------------------
 
 export interface RegisterRequest {
   type: constants.REGISTER_REQUEST
@@ -18,39 +20,23 @@ export interface RegisterRequest {
     email: string
     password: string
   }
+  meta: {
+    history: H.History
+  }
 }
 
-export interface RegisterRequestSuccess {
-  type: constants.REGISTER_REQUEST_SUCCESS
-  payload: User
-}
-
-export interface RegisterRequestFailure {
-  type: constants.REGISTER_REQUEST_FAILURE
-  payload: User
-}
-
-export interface SetCurrentUser {
-  type: constants.CURRENT_USER_SET
-  payload: User
-}
-
-// -----------------------------------------------------------------------------
-// ACTIONS
-// -----------------------------------------------------------------------------
-
-/**
- * Triggers call to register the user
- */
-export function registerRequest({
-  username,
-  email,
-  password,
-}: {
-  username: string
-  email: string
-  password: string
-}) {
+export function registerRequest(
+  {
+    username,
+    email,
+    password,
+  }: {
+    username: string
+    email: string
+    password: string
+  },
+  history: H.History
+): RegisterRequest {
   return {
     type: constants.REGISTER_REQUEST,
     payload: {
@@ -58,21 +44,60 @@ export function registerRequest({
       password,
       username,
     },
+    meta: { history },
   }
 }
 
-export function registerRequestSuccess(user: User) {
+// -----------------------------------------------------------------------------
+// REGISTER USER REQUEST (SUCCESS)
+// -----------------------------------------------------------------------------
+
+export interface RegisterRequestSuccess {
+  type: constants.REGISTER_REQUEST_SUCCESS
+  payload: User
+  meta: {
+    history: H.History
+  }
+}
+
+export function registerRequestSuccess(
+  user: User,
+  history: H.History
+): RegisterRequestSuccess {
   return {
     type: constants.REGISTER_REQUEST_SUCCESS,
     payload: user,
+    meta: {
+      history,
+    },
   }
 }
 
-export function registerRequestFailure(error: string) {
+// -----------------------------------------------------------------------------
+// REGISTER USER REQUEST (FAILURE)
+// -----------------------------------------------------------------------------
+
+export interface RegisterRequestFailure {
+  type: constants.REGISTER_REQUEST_FAILURE
+  payload: string[]
+}
+
+export function registerRequestFailure(
+  error: string[]
+): RegisterRequestFailure {
   return {
     type: constants.REGISTER_REQUEST_FAILURE,
     payload: error,
   }
+}
+
+// -----------------------------------------------------------------------------
+// SET USER
+// -----------------------------------------------------------------------------
+
+export interface SetCurrentUser {
+  type: constants.CURRENT_USER_SET
+  payload: User
 }
 
 export function setCurrentUser(user?: User) {

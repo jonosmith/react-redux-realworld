@@ -2,6 +2,7 @@ import View from './_View'
 import * as constants from './constants'
 import initData from './initData'
 import reducer from './reducer'
+import sagas from './sagas'
 
 export * from './types'
 export default {
@@ -10,4 +11,5 @@ export default {
   constants,
   initData,
   reducer,
+  sagas,
 }

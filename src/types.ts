@@ -17,3 +17,11 @@ export interface State {
     REGISTER: RegisterState
   }
 }
+
+export interface User {
+  email: string
+  token: string
+  username: string
+  bio?: string
+  image?: string
+}

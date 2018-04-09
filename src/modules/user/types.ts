@@ -1,20 +1,4 @@
-export interface User {
-  email: string
-  token: string
-  username: string
-  bio: string
-  image?: string
-}
+import { RemoteData } from '../../common/remotedata'
+import { User } from '../../types'
 
-export interface DataState {
-  user?: User
-}
-
-export interface UiState {
-  error?: string
-}
-
-export interface State {
-  data: DataState
-  ui: UiState
-}
+export type State = RemoteData<string[], User>

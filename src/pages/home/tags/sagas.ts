@@ -1,5 +1,6 @@
 import { takeLatest } from 'redux-saga'
 import { put } from 'redux-saga/effects'
+
 import api from '../../../api'
 import * as actions from './actions'
 import * as constants from './constants'
@@ -26,7 +27,7 @@ function* watch() {
 
 function* fetchTagsFlow() {
   try {
-    const fetchedTags = yield api.tags.fetch()
+    const fetchedTags = yield api.tags.fetchAllTags()
     console.log(fetchedTags) // tslint:disable-line
 
     yield put(actions.setTags(['JavaScript', 'TypeScript']))

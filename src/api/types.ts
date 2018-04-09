@@ -3,7 +3,7 @@ export interface Error {
   response: {
     data: {
       errors: {
-        message: string
+        [key: string]: string
       }
     }
   }
